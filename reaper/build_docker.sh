@@ -1,0 +1,1 @@
+mvn package && mvn -B -pl src/server/ docker:build -Ddocker.directory=src/server/src/main/docker && docker tag cassandra-reaper:latest docker.io/thelastpickle/cassandra-reaper:incremental-test && kind load docker-image docker.io/thelastpickle/cassandra-reaper:status-improvement
