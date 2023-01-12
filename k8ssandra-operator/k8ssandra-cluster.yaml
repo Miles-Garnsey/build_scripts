@@ -1,0 +1,43 @@
+apiVersion: k8ssandra.io/v1alpha1
+kind: K8ssandraCluster
+metadata:
+  name: test
+  namespace: k8ssandra-operator
+spec:
+  reaper:
+    containerImage:
+      registry: ""
+      repository: ""
+      name: cassandra-reaper
+      tag: status-improvement
+  cassandra:
+    serverVersion: 4.0.1
+    # serverType: dse
+    # serverImage: datastax/dse-mgmtapi-6_8
+    # dseWorkloads:
+    #   graphEnabled: true
+    #   searchEnabled: false
+    # telemetry:
+    #   prometheus:
+    #     commonLabels:
+    #       release: test-label-miles
+    #     enabled: true
+    datacenters:
+      - metadata:
+          name: dc1
+        size: 1
+        # cdc:
+        #   pulsarServiceUrl: pulsar://pulsar-proxy.pulsar.svc.cluster.local:6650
+        #   topicPrefix: persistent://public/default/events-
+        #   cdcWorkingDir: /var/lib/cassandra/cdc
+        storageConfig:
+          cassandraDataVolumeClaimSpec:
+            storageClassName: standard
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 5Gi
+        config:
+          jvmOptions:
+            heapSize: 384Mi
