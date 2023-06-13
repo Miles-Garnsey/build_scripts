@@ -1,12 +1,11 @@
 # Linux version of CCM script
 
-rm -rf 
-ccm create test -v binary:4.0.1
-sudo ifconfig lo0 alias 127.0.0.2 up
+ccm stop
+rm -rf /home/user/.ccm/test
+ccm create test -v binary:4.0.4
+# sudo ifconfig lo:1 127.0.0.2 up
 ccm populate --vnodes -n 2:0
 for i in `seq 1 2` ; do
-          sed -i  -e 's/LOCAL_JMX=yes/LOCAL_JMX=no/' ~/.ccm/test/node$i/conf/cassandra-env.sh
-          sed -i -e 's/etc\/cassandra\/jmxremote.password/home\/runner\/.local\/jmxremote.password/' ~/.ccm/test/node$i/conf/cassandra-env.sh
           # relevant for elassandra, ensure the node's dc name matches the client
           sed -i  -e 's/DC1/dc1/' ~/.ccm/test/node$i/conf/cassandra-rackdc.properties
           sed -i  -e 's/PropertyFileSnitch/GossipingPropertyFileSnitch/' ~/.ccm/test/node$i/conf/cassandra.yaml
