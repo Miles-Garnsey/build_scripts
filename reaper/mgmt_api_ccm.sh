@@ -2,7 +2,7 @@
 
 CCM_NAME="test"
 # set Cassandra version to first script argument, or 3.11.15 if no argument is specified
-CASSANDRA_VERSION="binary:"${1:-"4.0.3"}
+CASSANDRA_VERSION="binary:"${1:-"4.0.5"}
 JDK_VENDOR=temurin
 
 configure_ccm () {
